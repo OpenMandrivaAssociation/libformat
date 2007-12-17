@@ -11,7 +11,6 @@ URL:		http://daveb.net/format
 Source0:	http://daveb.net/format/src/%{name}-%{version}.tar.bz2
 BuildRequires:	automake1.7
 BuildRequires:	autoconf2.5
-BuildRoot:	%{_tmppath}/%{name}-%{version}-root
 
 %description
 libformat is an adaptation of the mod_format Apache module to do syntax
