@@ -4,7 +4,7 @@
 Summary:	A library for HTML syntax highlighting of source code
 Name:		libformat
 Version:	1.5
-Release:	%mkrel 1
+Release:	%mkrel 3
 Group:		System/Libraries
 License:	GPL
 URL:		http://daveb.net/format
