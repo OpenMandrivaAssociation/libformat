@@ -1,5 +1,6 @@
 %define	major 2
 %define libname	%mklibname format %{major}
+%define develname %mklibname -d format
 
 Summary:	A library for HTML syntax highlighting of source code
 Name:		libformat
@@ -9,8 +10,7 @@ Group:		System/Libraries
 License:	GPL
 URL:		http://daveb.net/format
 Source0:	http://daveb.net/format/src/%{name}-%{version}.tar.bz2
-BuildRequires:	automake1.7
-BuildRequires:	autoconf2.5
+Patch0:		libformat-1.5-fix-str-fmt.patch
 BuildRoot:	%{_tmppath}/%{name}-%{version}-root
 
 %description
@@ -29,13 +29,14 @@ highlighting of source code using HTML outside of Apache.  libformat is
 capable of syntax highlighting C, C++, Java, Python, Verilog and VHDL 
 source code.  
 
-%package -n	%{libname}-devel
+%package -n	%{develname}
 Summary:	Static library and header files for the %{name} library
 Group:		Development/C
 Provides:	%{name}-devel = %{version}
 Requires:	%{libname} = %{version}
+Obsoletes:	%{_lib}format2-devel < %{version}-%{release}
 
-%description -n	%{libname}-devel
+%description -n	%{develname}
 libformat is an adaptation of the mod_format Apache module to do syntax
 highlighting of source code using HTML outside of Apache.  libformat is 
 capable of syntax highlighting C, C++, Java, Python, Verilog and VHDL 
@@ -44,16 +45,12 @@ source code.
 This package contains the static %{name} library and its header files.
 
 %prep
-
 %setup -q
+%patch0 -p0
 
 %build
-export WANT_AUTOCONF_2_5=1
-rm -f configure
-libtoolize --copy --force; aclocal-1.7; automake-1.7 --add-missing --copy; autoconf --force
-
+autoreconf -fi
 %configure2_5x
-
 %make
 
 %install
@@ -79,7 +76,7 @@ libtoolize --copy --force; aclocal-1.7; automake-1.7 --add-missing --copy; autoc
 %{_libdir}/*.so.*
 %{_datadir}/libformat
 
-%files -n %{libname}-devel
+%files -n %{develname}
 %defattr(-,root,root)
 %{_includedir}/*
 %{_libdir}/*.so
