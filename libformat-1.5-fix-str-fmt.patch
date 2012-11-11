@@ -1,0 +1,11 @@
+--- src/srcformat.c.str	2010-02-19 21:59:17.000000000 +0100
++++ src/srcformat.c	2010-02-19 21:59:30.000000000 +0100
+@@ -166,7 +166,7 @@
+ 	  fprintf(fp,"--></style>\n");
+ 	  fprintf(fp,"</head>\n");
+ 	  fprintf(fp,"<body class=\"format_global\">\n");
+-	  fprintf(fp,output);
++	  fprintf(fp,"%s",output);
+ 	  fprintf(fp,"\n</body>\n</html>\n");
+ 	  fclose(fp);
+ 	} else {
