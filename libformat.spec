@@ -5,13 +5,12 @@
 Summary:	A library for HTML syntax highlighting of source code
 Name:		libformat
 Version:	1.5
-Release:	%mkrel 5
+Release:	6
 Group:		System/Libraries
 License:	GPL
 URL:		http://daveb.net/format
 Source0:	http://daveb.net/format/src/%{name}-%{version}.tar.bz2
 Patch0:		libformat-1.5-fix-str-fmt.patch
-BuildRoot:	%{_tmppath}/%{name}-%{version}-root
 
 %description
 libformat is an adaptation of the mod_format Apache module to do syntax
@@ -21,7 +20,7 @@ source code.
 
 %package -n	%{libname}
 Summary:	A library for HTML syntax highlighting of source code
-Group:          System/Libraries
+Group:		System/Libraries
 
 %description -n	%{libname}
 libformat is an adaptation of the mod_format Apache module to do syntax
@@ -32,8 +31,8 @@ source code.
 %package -n	%{develname}
 Summary:	Static library and header files for the %{name} library
 Group:		Development/C
-Provides:	%{name}-devel = %{version}
-Requires:	%{libname} = %{version}
+Provides:	%{name}-devel = %{version}-%{release}
+Requires:	%{libname} = %{version}-%{release}
 Obsoletes:	%{_lib}format2-devel < %{version}-%{release}
 
 %description -n	%{develname}
@@ -54,31 +53,50 @@ autoreconf -fi
 %make
 
 %install
-[ "%{buildroot}" != "/" ] && rm -rf %{buildroot}
-
 %makeinstall_std
 
-%if %mdkversion < 200900
-%post -n %{libname} -p /sbin/ldconfig
-%endif
-
-%if %mdkversion < 200900
-%postun -n %{libname} -p /sbin/ldconfig
-%endif
-
-%clean
-[ "%{buildroot}" != "/" ] && rm -rf %{buildroot}
-
 %files -n %{libname}
-%defattr(-,root,root)
 %doc AUTHORS COPYING ChangeLog NEWS README
 %{_bindir}/srcformat
 %{_libdir}/*.so.*
 %{_datadir}/libformat
 
 %files -n %{develname}
-%defattr(-,root,root)
 %{_includedir}/*
 %{_libdir}/*.so
 %{_libdir}/*.a
-%{_libdir}/*.la
+
+%changelog
+* Sun Dec 05 2010 Oden Eriksson <oeriksson@mandriva.com> 1.5-5mdv2011.0
++ Revision: 609746
+- rebuild
+
+* Fri Feb 19 2010 Funda Wang <fwang@mandriva.org> 1.5-4mdv2010.1
++ Revision: 508565
+- fix str fmt
+
+  + Thierry Vignaud <tv@mandriva.org>
+    - rebuild
+
+* Fri Jul 25 2008 Thierry Vignaud <tv@mandriva.org> 1.5-3mdv2009.0
++ Revision: 248645
+- rebuild
+
+  + Pixel <pixel@mandriva.com>
+    - do not call ldconfig in %%post/%%postun, it is now handled by filetriggers
+
+* Wed Jan 02 2008 Olivier Blin <oblin@mandriva.com> 1.5-1mdv2008.1
++ Revision: 140921
+- restore BuildRoot
+
+  + Thierry Vignaud <tv@mandriva.org>
+    - kill re-definition of %%buildroot on Pixel's request
+
+* Wed May 09 2007 Oden Eriksson <oeriksson@mandriva.com> 1.5-1mdv2008.0
++ Revision: 25435
+- Import libformat
+
+
+
+* Wed Apr 05 2006 Oden Eriksson <oeriksson@mandriva.com> 1.5-1mdk
+- initial Mandriva package
