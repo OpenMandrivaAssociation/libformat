@@ -8,7 +8,7 @@ Version:	1.5
 Release:	7
 Group:		System/Libraries
 License:	GPL
-URL:		http://daveb.net/format
+URL:		https://daveb.net/format
 Source0:	http://daveb.net/format/src/%{name}-%{version}.tar.bz2
 Patch0:		libformat-1.5-fix-str-fmt.patch
 
